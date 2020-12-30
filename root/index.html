@@ -105,6 +105,8 @@
                                 //  adding word count
                                 document.getElementById('wordCount').textContent = `Count:${result.text.length}`
 
+                                codeReader.reset();
+
                             }
                             if (err && !(err instanceof ZXing.NotFoundException)) {
                                 console.error(err)
