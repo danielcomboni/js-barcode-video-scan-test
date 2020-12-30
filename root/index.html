@@ -49,7 +49,7 @@
             <pre><code id="result"></code></pre>
 
             <div>
-                <video id="video" width="300" height="200" style="border: 0px solid gray"></video>
+                <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
             </div>
 
             <div>
@@ -107,7 +107,6 @@
                         } else {
                             document.write("not mobile");
                         }
-
 
                         codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
                             if (result) {
