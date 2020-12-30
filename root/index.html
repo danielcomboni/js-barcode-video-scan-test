@@ -105,7 +105,7 @@
                         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                             document.getElementById('video').width = screenWidth
                         } else {
-                            document.write("not mobile");
+                            // document.write("not mobile");
                         }
 
                         codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
