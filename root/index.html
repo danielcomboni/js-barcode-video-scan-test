@@ -37,7 +37,7 @@
             <pre><code id="result"></code></pre>
 
             <div>
-                <video id="video" width="600" height="600" style="border: 1px solid gray"></video>
+                <video id="video" width="600" height="400" style="border: 0px solid gray"></video>
             </div>
 
             <div>
@@ -86,16 +86,17 @@
 
                     document.getElementById('startButton').addEventListener('click', () => {
 
-                        const screenWidth = screen.width;
-                        const screenHeight = screen.height;
+                        // const screenWidth = screen.width;
+                        // const screenHeight = screen.height;
 
-                        // add device detection
-                        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                            document.getElementById('video').width = screenWidth - 20
-                            document.getElementById('video').height = screenHeight - 20
-                        } else {
-                            // document.write("not mobile");
-                        }
+                        // // add device detection
+                        // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                        //     document.getElementById('video').width = screenWidth - 1000
+                        //     document.getElementById('video').height = screenHeight - 20
+                        // } else {
+                        //     document.getElementById('video').width = screenWidth 
+                        //     // document.getElementById('video').height = screenHeight - 20
+                        // }
 
                         codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
                             if (result) {
