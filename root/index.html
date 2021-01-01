@@ -6,57 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="ZXing for JS">
 
-    <title>ZXing TypeScript | Decoding from camera stream</title>
+    <title>Barcode JS test</title>
 
-    <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-    <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
-        href="https://unpkg.com/normalize.css@8.0.0/normalize.css">
-    <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
-        href="https://unpkg.com/milligram@1.3.0/dist/milligram.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 </head>
 
 <body>
 
-    <main class="wrapper" style="padding-top:2em">
 
-        <section class="container" id="demo-content">
-         
-            <div>
-                <a class="button" id="startButton">Start</a>
-                <a class="button" id="resetButton">Reset</a>
+    <div class="container">
+
+
+
+        <div class="btn-group" role="group" aria-label="" style="padding-bottom: 10px;">
+            <button type="button" class="btn btn-secondary" id="startButton">Scan</button>
+            <button type="button" class="btn btn-secondary" hidden></button>
+            <button type="button" class="btn btn-secondary" id="resetButton">Reset</button>
+        </div>
+
+        <div class="input-group mb-3" id="sourceSelectPanel">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="sourceSelect">Options</label>
             </div>
+            <select class="custom-select" id="sourceSelect">
 
-            <div id="sourceSelectPanel" style="display:none">
-                <label for="sourceSelect">Change video source:</label>
-                <select id="sourceSelect" style="max-width:400px">
-                </select>
+            </select>
+        </div>
+
+        <div class="card" hidden id="video-card-id">
+            <h5 class="card-header">Focus camera on barcode(qr code)</h5>
+            <div class="card-body">
+                <div>
+                    <video id="video" width="100%" style="border: 0px solid gray"></video>
+                </div>
             </div>
+        </div>
 
-            <label>Result:</label>
-            <pre><code id="result"></code></pre>
 
-            <div>
-                <video id="video" width="100%" style="border: 0px solid gray"></video>
+        <div class="card" hidden id="result-card-id">
+            <h5 class="card-header">decoded result</h5>
+            <div class="card-body">
+                <!-- <h5 class="card-title">Count:</h5> -->
+                <p class="card-text" id="result"></p>
             </div>
+        </div>
 
-            <div>
-                <label id="wordCount">Count:</label>
-            </div>
 
-            <p>See the <a href="https://github.com/zxing-js/library/tree/master/docs/examples/multi-camera/">source
-                    code</a>
-                for this example.</p>
-        </section>
-
-        <footer class="footer">
+        <!-- <footer class="footer">
             <section class="container">
                 <p>ZXing TypeScript Demo. Licensed under the <a target="_blank"
                         href="https://github.com/zxing-js/library#license" title="MIT">MIT</a>.</p>
             </section>
-        </footer>
+        </footer> -->
 
-    </main>
+    </div>
 
     <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
     <script type="text/javascript">
@@ -80,8 +85,8 @@
                             selectedDeviceId = sourceSelect.value;
                         };
 
-                        const sourceSelectPanel = document.getElementById('sourceSelectPanel')
-                        sourceSelectPanel.style.display = 'block'
+                        // const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+                        // sourceSelectPanel.style.display = 'block'
                     }
 
                     document.getElementById('startButton').addEventListener('click', () => {
@@ -98,14 +103,16 @@
                         //     // document.getElementById('video').height = screenHeight - 20
                         // }
 
+                        document.getElementById('video-card-id').hidden = false;
+                        document.getElementById('result-card-id').hidden = true;
+
                         codeReader.decodeFromVideoDevice(selectedDeviceId, 'video', (result, err) => {
                             if (result) {
                                 console.log(result)
+
+                                document.getElementById('video-card-id').hidden = true;
+                                document.getElementById('result-card-id').hidden = false;
                                 document.getElementById('result').textContent = result.text
-
-                                //  adding word count
-                                document.getElementById('wordCount').textContent = `Count:${result.text.length}`
-
                                 codeReader.reset();
 
                             }
@@ -120,6 +127,7 @@
                     document.getElementById('resetButton').addEventListener('click', () => {
                         codeReader.reset()
                         document.getElementById('result').textContent = '';
+                        document.getElementById('result-card-id').hidden = true;
                         console.log('Reset.')
                     })
 
